@@ -1,3 +1,3 @@
-# testing
+# Demo AskMyPDF
 
-For private purposes
+This is to demo a PDF RAG app.
