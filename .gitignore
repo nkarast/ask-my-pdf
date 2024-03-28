@@ -1,5 +1,5 @@
-asset/
+asset/*
 flagged/
-notebooks/
+notebooks/*
 __pycache__
 *.pyc
