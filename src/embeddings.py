@@ -3,6 +3,7 @@ from logger import get_logger
 
 logger = get_logger("embeddings", "DEBUG")
 
+
 class Embedder(LlamaCppEmbeddings):
     """Wrapper around the `langchain_community.embeddings.LlamaCppEmbeddings`"""
 

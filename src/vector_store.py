@@ -4,7 +4,8 @@ from logger import get_logger
 
 logger = get_logger("vector_store", "DEBUG")
 
-class KnowledgeBase():
+
+class KnowledgeBase:
     """Creates a Chroma vector store in memory"""
 
     def __init__(self, pages: list, embeddings: LlamaCppEmbeddings):
@@ -16,7 +17,6 @@ class KnowledgeBase():
         """
         self.pages = pages
         self.embeddings = embeddings
-
 
     def build_kb(self):
         """Build the KB from the documents
