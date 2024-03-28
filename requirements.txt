@@ -4,3 +4,5 @@ python-dotenv==1.0.1
 streamlit==1.32.2
 chroma-hnswlib==0.7.3
 chromadb==0.4.24
+pre-commit==3.7.0
+ruff==0.3.4
