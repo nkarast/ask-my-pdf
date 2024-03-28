@@ -118,7 +118,7 @@ def run_chain(chain, query):
 ### MAIN
 
 conf = read_env()
-st.set_page_config(page_title="Foteini's RAG", page_icon=":sunglasses:")
+st.set_page_config(page_title="AskMyPDF", page_icon=":sunglasses:")
 
 st.title("Ask my PDF")
 

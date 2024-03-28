@@ -1,3 +1,2 @@
 #/bin/bash
-
-steamlit run src/app.py
+streamlit run src/app.py  

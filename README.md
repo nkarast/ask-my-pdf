@@ -6,6 +6,11 @@
 
 Given a PDF, build a RAG chain and use a local LLM to ask questions relevant to the document
 
+<p align="center">
+<img src="asset/img/example_ampdf.png" alt="example_askMyPdf" width="400"/>
+</p>
+
+
 ### Purpose 
 
 The application has been developed for experimentation and learning purposes.
