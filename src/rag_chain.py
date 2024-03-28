@@ -1,4 +1,3 @@
-from langchain import hub
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts.chat import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
@@ -19,7 +18,6 @@ class RAGChain:
             docs (langchain_community.vectorstores.chroma.Chroma): _description_
             llm (): _description_
         """
-        # self.prompt = hub.pull("rlm/rag-prompt")
         self.prompt = self.get_prompt()
         self.retriever = retriever
         self.docs = docs
