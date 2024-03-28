@@ -11,3 +11,6 @@ notebooks/*.ipynb
 __pycache__
 *.pyc
 .env
+
+## Ruff
+.ruff_cache

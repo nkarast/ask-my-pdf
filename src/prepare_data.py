@@ -1,7 +1,6 @@
 from langchain_community.document_loaders import PyPDFLoader
 from embeddings import Embedder
 from vector_store import KnowledgeBase
-from pathlib import Path
 from logger import get_logger
 
 logger = get_logger("prepare_data", "INFO")
