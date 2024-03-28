@@ -1,5 +1,9 @@
-asset/*
-flagged/
-notebooks/*
+## Remove PDFs from assets
+asset/*.pdf
+
+## Remove Notebooks
+notebooks/*.ipynb
+
 __pycache__
 *.pyc
+.env
