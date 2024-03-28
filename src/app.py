@@ -2,8 +2,6 @@ from dotenv import dotenv_values
 import pathlib
 from collections import OrderedDict
 from logging import Logger
-
-# import gradio as gr
 import streamlit as st
 from prepare_data import DataLoader
 from rag_chain import RAGChain
@@ -11,9 +9,6 @@ from llm import Llm
 from logger import get_logger
 
 logger = get_logger("main", "DEBUG")
-data = None
-chain = None
-llm = None
 
 
 def read_env(env: str = ".env") -> OrderedDict:
@@ -65,18 +60,13 @@ def _get_local_pdf(env: OrderedDict) -> str:
     return "/".join([_get_local_asset_path(env), env["TEMP_PDF"]])
 
 
-def initialize_chain(
-    env: OrderedDict, logger: Logger, filename: str = None
-) -> RAGChain:
+def initialize_chain(env: OrderedDict, logger: Logger, filename: str = None):
     """Initialize the setup for the chain
 
     Args:
         env (OrderedDict): The env file for local environment variables
         logger (Logger): The main app logger
         filename (str, optional): Name of the PDF to be loaded.
-
-    Returns:
-        RAGChain: Runnable chain to wrap on a UI accessible function
     """
 
     model_path = _get_local_model_name(env)
@@ -108,15 +98,11 @@ def initialize_chain(
         st.session_state.chain = chain
 
 
-#    return chain
-
-
 def run_chain(chain, query):
     return chain.run_chain(query)
 
 
 ### MAIN
-
 conf = read_env()
 st.set_page_config(page_title="AskMyPDF", page_icon=":sunglasses:")
 
@@ -125,7 +111,7 @@ st.title("Ask my PDF")
 st.markdown(
     """
             | Document Title | Model Name |
-            | -- | -- | 
+            | -- | -- |
             | {doc} | {model}|
             """.format(doc=conf["TEMP_PDF"], model=conf["MODEL_NAME"].split("/")[-1])
 )
