@@ -1,9 +1,13 @@
 ## Remove PDFs from assets
 asset/*.pdf
 
+## Remove Gradio flagged dir
+flagged/
+
 ## Remove Notebooks
 notebooks/*.ipynb
 
+## Python and local envs
 __pycache__
 *.pyc
 .env

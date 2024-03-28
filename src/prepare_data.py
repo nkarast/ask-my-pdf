@@ -19,13 +19,10 @@ class DataLoader(PyPDFLoader):
                             folder which sits at the same level to `src`
             embedding_model_path (str): Path to the embedding model
         """
-        self.asset_path = Path("asset")
-        # parent -> src + parent -> root
-        self.root_path = Path(__file__).parent.parent.resolve()
-        self.file_to_load = str((self.root_path / self.asset_path / filename))
-        logger.info(f"Loading file: {self.file_to_load}")
+        self.filename = filename
+        logger.info(f"Loading file: {self.filename}")
 
-        super().__init__(self.file_to_load)
+        super().__init__(self.filename)
         self.embedding_model_path = embedding_model_path
 
         logger.info("Splitting document")
