@@ -2,13 +2,18 @@ from dotenv import dotenv_values
 import pathlib
 from collections import OrderedDict
 from logging import Logger
-import gradio as gr
+
+# import gradio as gr
+import streamlit as st
 from prepare_data import DataLoader
 from rag_chain import RAGChain
 from llm import Llm
 from logger import get_logger
 
 logger = get_logger("main", "DEBUG")
+data = None
+chain = None
+llm = None
 
 
 def read_env(env: str = ".env") -> OrderedDict:
@@ -85,42 +90,60 @@ def initialize_chain(
     logger.info("Starting")
     logger.info("Preparing data store...")
     data = DataLoader(filename=filename, embedding_model_path=model_path)
+    st.session_state.data = False
+
+    if not st.session_state.data:
+        st.session_state.data = data
 
     logger.info("Setting up model")
     llm = Llm(model_path=model_path)
+    st.session_state.llm = False
+    if not st.session_state.llm:
+        st.session_state.llm = llm
 
     logger.info("Preparing chain")
+    st.session_state.chain = False
     chain = RAGChain(data.retriever, data.docs, llm)
-    return chain
+    if not st.session_state.chain:
+        st.session_state.chain = chain
 
 
-if __name__ == "__main__":
-    conf = read_env()
-    print(conf)
-    chain = initialize_chain(conf, logger)
+#    return chain
 
-    def ask_my_pdf(question: str) -> str:
-        """Function to wrap the interface button around in order to invoke the chian
 
-        Args:
-            question (str): User question
+def run_chain(chain, query):
+    return chain.run_chain(query)
 
-        Returns:
-            str: LLM output
-        """
-        return chain.run_chain(question)
 
-    def __ask_my_pdf(question: str) -> str:
-        """Dummy question for testing without passing through LLM
+### MAIN
 
-        Args:
-            question (str): User input
+conf = read_env()
+st.set_page_config(page_title="Foteini's RAG", page_icon=":sunglasses:")
 
-        Returns:
-            str: Same as user input (passthrough)
-        """
-        return question
+st.title("Ask my PDF")
 
-    demo = gr.Interface(fn=__ask_my_pdf, inputs="textbox", outputs="textbox")
+st.markdown(
+    """
+            | Document Title | Model Name |
+            | -- | -- | 
+            | {doc} | {model}|
+            """.format(doc=conf["TEMP_PDF"], model=conf["MODEL_NAME"].split("/")[-1])
+)
+st.text("")
 
-    demo.launch(inbrowser=True)
+
+but_press = st.button(
+    "Click to Process Document", on_click=initialize_chain, args=(conf, logger)
+)
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+for message in st.session_state.messages:
+    st.chat_message("human").write(message[0])
+    st.chat_message("ai").write(message[1])
+
+if query := st.chat_input():
+    st.chat_message("human").write(query)
+    response = run_chain(st.session_state.chain, query)
+    st.chat_message("ai").write(response)
