@@ -21,3 +21,6 @@ tests/
 
 ## Docs -- temp
 docs/
+
+## Building
+askmypdf.egg-info/
