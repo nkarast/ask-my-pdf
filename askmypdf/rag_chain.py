@@ -48,11 +48,11 @@ If you don't know the answer, just say that you don't know. \
 Use three sentences maximum and keep the answer concise.
 
 <question>
-Question: {question} 
+Question: {question}
 </question>
 
 <context>
-Context: {context} 
+Context: {context}
 </context>
 
 Answer:[/INST]"""

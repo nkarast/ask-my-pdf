@@ -57,7 +57,7 @@ def _get_local_pdf(env: OrderedDict) -> str:
     Returns:
         str: The full local pdf path and filename
     """
-    return "/".join([_get_local_asset_path(env), env["TEMP_PDF"]])
+    return "/".join([_get_local_asset_path(env), env["PDF_NAME"]])
 
 
 def initialize_chain(env: OrderedDict, logger: Logger, filename: str = None):

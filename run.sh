@@ -1,2 +1,2 @@
 #/bin/bash
-streamlit run src/app.py  
+streamlit run askmypdf/app.py

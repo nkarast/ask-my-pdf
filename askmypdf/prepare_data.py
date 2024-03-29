@@ -71,7 +71,7 @@ class DataLoader(PyPDFLoader):
         )
         return retriever
 
-    def test_retriever(self, question: str):
+    def run_retriever(self, question: str):
         """Test the retriever based on a user question.
 
         Args:
