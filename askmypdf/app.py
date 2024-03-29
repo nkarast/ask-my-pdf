@@ -113,7 +113,7 @@ st.markdown(
             | Document Title | Model Name |
             | -- | -- |
             | {doc} | {model}|
-            """.format(doc=conf["TEMP_PDF"], model=conf["MODEL_NAME"].split("/")[-1])
+            """.format(doc=conf["PDF_NAME"], model=conf["MODEL_NAME"].split("/")[-1])
 )
 st.text("")
 
