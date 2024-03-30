@@ -8,7 +8,7 @@ from rag_chain import RAGChain
 from llm import Llm
 from logger import get_logger
 
-logger = get_logger("main", "DEBUG")
+logger = get_logger("main", "INFO")
 
 
 def read_env(env: str = ".env") -> OrderedDict:
@@ -102,34 +102,82 @@ def run_chain(chain, query):
     return chain.run_chain(query)
 
 
-### MAIN
+######################################################
+###                 MAIN
+######################################################
+
+
+# 1. Init setup
 conf = read_env()
 st.set_page_config(page_title="AskMyPDF", page_icon=":sunglasses:")
 
-st.title("Ask my PDF")
-
-st.markdown(
-    """
-            | Document Title | Model Name |
-            | -- | -- |
-            | {doc} | {model}|
-            """.format(doc=conf["PDF_NAME"], model=conf["MODEL_NAME"].split("/")[-1])
-)
-st.text("")
-
-
-but_press = st.button(
-    "Click to Process Document", on_click=initialize_chain, args=(conf, logger)
-)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
+
+# 2. Title & MD
+with st.sidebar:
+    st.title("Ask My PDF")
+    st.markdown("""# Help
+Use a Large Language Model to get an understanding of your document!
+
+:one: Use the default configuration or upload your own PDF file using the widget.
+
+:two: Click on the "Process Document".
+
+:three: Start chatting with your document!
+
+
+*Tip: You can close this sidebar by clicking on the X.*
+                """)
+st.write("")
+
+
+# 3. Upload File
+uploaded_file = st.file_uploader("Upload your file", type="pdf")
+
+if uploaded_file:
+    logger.info("Custom file uploaded. Filename = ", uploaded_file.name)
+    conf["PDF_NAME"] = uploaded_file.name
+    with open(conf["PDF_PATH"] + uploaded_file.name, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+    logger.info("Custom file stored ", conf["PDF_PATH"] + uploaded_file.name)
+st.write("")
+
+
+# 4. Config
+left, right = st.columns(spec=[0.7, 0.3])
+with left:
+    st.markdown(f""" #### Configuration
+- :robot_face: Model: {conf["MODEL_NAME"].split("/")[-1]}
+- :books: File: {conf['PDF_NAME']}
+""")
+    st.text("")
+
+
+with right:
+    but_press = st.button(
+        "Process Document",
+        on_click=initialize_chain,
+        args=(conf, logger),
+        type="primary",
+    )
+
+
+# 5. Chat
 for message in st.session_state.messages:
     st.chat_message("human").write(message[0])
     st.chat_message("ai").write(message[1])
 
-if query := st.chat_input():
+
+if query := st.chat_input("Enter your question"):
+    logger.debug(f"Query: {query}")
     st.chat_message("human").write(query)
     response = run_chain(st.session_state.chain, query)
+    logger.debug(f"AI: {response}")
     st.chat_message("ai").write(response)
+    st.session_state.chat_history.append((query, response))
