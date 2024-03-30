@@ -7,13 +7,13 @@
 Given a PDF, build a RAG chain and use a local LLM to ask questions relevant to the document
 
 <p align="center">
-<img src="asset/img/example_ampdf.png" alt="example_askMyPdf" width="400"/>
+<img src="asset/img/example_ampdf.png" alt="example_askMyPdf" width="600"/>
 </p>
 
 
-### Purpose 
+### Purpose
 
-The application has been developed for experimentation and learning purposes.
+For fun!
 
 
 ### PreReqs
@@ -26,7 +26,7 @@ The app is built using
 - `dotenv` to load environment variables
 
 
-### `.env` :: To Be Updated
+### `.env`
 
 To replicate the results create a `.env` file in the `src/` having the variables
 ```bash
