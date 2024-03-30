@@ -115,14 +115,11 @@ st.set_page_config(page_title="AskMyPDF", page_icon=":sunglasses:")
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
-
 
 # 2. Title & MD
 with st.sidebar:
     st.title("Ask My PDF")
-    st.markdown("""# Help
+    st.markdown("""## Help
 Use a Large Language Model to get an understanding of your document!
 
 :one: Use the default configuration or upload your own PDF file using the widget.
@@ -180,4 +177,3 @@ if query := st.chat_input("Enter your question"):
     response = run_chain(st.session_state.chain, query)
     logger.debug(f"AI: {response}")
     st.chat_message("ai").write(response)
-    st.session_state.chat_history.append((query, response))

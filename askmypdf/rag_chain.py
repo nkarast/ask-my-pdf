@@ -46,6 +46,7 @@ class RAGChain:
 Use the following pieces of retrieved context to answer the question. \
 If you don't know the answer, just say that you don't know. \
 Keep the answer concise and use maximum 250 words. \
+Provide the answer directly without any introduction about the context.
 
 <question>
 Question: {question}
