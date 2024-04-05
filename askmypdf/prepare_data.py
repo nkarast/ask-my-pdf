@@ -24,7 +24,7 @@ class DataLoader(PyPDFLoader):
         super().__init__(self.filename)
         self.embedding_model_path = embedding_model_path
 
-        logger.info("Splitting document")
+        logger.info("Splitting document per page")
         self.pages = self.get_pages()
 
         logger.info("Loading embedding model")

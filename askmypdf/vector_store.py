@@ -18,7 +18,7 @@ class KnowledgeBase:
         self.pages = pages
         self.embeddings = embeddings
 
-    def build_kb(self):
+    def build_kb(self) -> Chroma:
         """Build the KB from the documents
 
         Returns:

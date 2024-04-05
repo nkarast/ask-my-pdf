@@ -5,7 +5,7 @@ asset/*.pdf
 flagged/
 
 ## Remove Notebooks
-notebooks/*.ipynb
+notebooks/0*.ipynb
 
 ## Python and local envs
 __pycache__
